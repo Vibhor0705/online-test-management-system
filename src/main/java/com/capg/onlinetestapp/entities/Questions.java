@@ -1,6 +1,7 @@
 package com.capg.onlinetestapp.entities;
 
 import java.math.*;
+import java.util.Arrays;
 
 public class Questions {
 	BigInteger questionId;
@@ -20,7 +21,48 @@ public class Questions {
 		this.chosenAnswer = chosenAnswer;
 		this.marksScored = marksScored;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Questions other = (Questions) obj;
+		if (chosenAnswer != other.chosenAnswer)
+			return false;
+		if (marksScored == null) {
+			if (other.marksScored != null)
+				return false;
+		} else if (!marksScored.equals(other.marksScored))
+			return false;
+		if (questionAnswer != other.questionAnswer)
+			return false;
+		if (questionId == null) {
+			if (other.questionId != null)
+				return false;
+		} else if (!questionId.equals(other.questionId))
+			return false;
+		if (questionMarks == null) {
+			if (other.questionMarks != null)
+				return false;
+		} else if (!questionMarks.equals(other.questionMarks))
+			return false;
+		if (!Arrays.equals(questionOptions, other.questionOptions))
+			return false;
+		if (questionTitle == null) {
+			if (other.questionTitle != null)
+				return false;
+		} else if (!questionTitle.equals(other.questionTitle))
+			return false;
+		return true;
+	}
 	public Questions() {
+		
+	}
+	public void updateQuestion(BigInteger id, Questions q) {
 		
 	}
 	public BigInteger getQuestionId() {

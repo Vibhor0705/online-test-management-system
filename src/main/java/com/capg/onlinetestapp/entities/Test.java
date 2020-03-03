@@ -1,6 +1,7 @@
 package com.capg.onlinetestapp.entities;
 
 import java.math.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,24 +10,31 @@ public class Test {
 	BigInteger testId;
 	String testTitle;
 	LocalTime testDuration;
-	Set<Questions> testQuestion = new HashSet<>();
+	Set<Questions> testQuestions = new HashSet<>();
 	BigDecimal testTotalMarks;
 	BigDecimal testMarksScored;
-	public Test(BigInteger testId, String testTitle, LocalTime testDuration, Set<Questions> testQuestion,
-			BigDecimal testTotalMarks, BigDecimal testMarksScored, Questions currentQuestion, LocalTime startTime,
-			LocalTime endTime) {
+	
+	public Test() {
+	System.out.println("inst test");
+	}
+	public Test(BigInteger testId, String testTitle, LocalTime testDuration, Set<Questions> testQuestions,
+			BigDecimal testTotalMarks, BigDecimal testMarksScored, Questions currentQuestion, LocalDateTime startTime,
+			LocalDateTime endTime) {
+		super();
 		this.testId = testId;
 		this.testTitle = testTitle;
 		this.testDuration = testDuration;
-		this.testQuestion = testQuestion;
+		this.testQuestions = testQuestions;
 		this.testTotalMarks = testTotalMarks;
 		this.testMarksScored = testMarksScored;
 		this.currentQuestion = currentQuestion;
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
-	public Test() {
-	
+	public Test(BigInteger testId, String testTitle) {
+		// TODO Auto-generated constructor stub
+		this.testId = testId;
+		this.testTitle = testTitle;
 	}
 	public BigInteger getTestId() {
 		return testId;
@@ -46,11 +54,11 @@ public class Test {
 	public void setTestDuration(LocalTime testDuration) {
 		this.testDuration = testDuration;
 	}
-	public Set<Questions> getTestQuestion() {
-		return testQuestion;
+	public Set<Questions> getTestQuestions() {
+		return testQuestions;
 	}
-	public void setTestQuestion(Set<Questions> testQuestion) {
-		this.testQuestion = testQuestion;
+	public void setTestQuestions(Set<Questions> testQuestion) {
+		this.testQuestions = testQuestion;
 	}
 	public BigDecimal getTestTotalMarks() {
 		return testTotalMarks;
@@ -70,21 +78,21 @@ public class Test {
 	public void setCurrentQuestion(Questions currentQuestion) {
 		this.currentQuestion = currentQuestion;
 	}
-	public LocalTime getStartTime() {
+	public LocalDateTime getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(LocalTime startTime) {
+	public void setStartTime(LocalDateTime startTime) {
 		this.startTime = startTime;
 	}
-	public LocalTime getEndTime() {
+	public LocalDateTime getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(LocalTime endTime) {
+	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
 	}
 	Questions currentQuestion;
-	LocalTime startTime;
-	LocalTime endTime;
+	LocalDateTime startTime;
+	LocalDateTime endTime;
 	
 	
 }

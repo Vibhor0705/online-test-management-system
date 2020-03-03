@@ -1,39 +1,49 @@
 package com.capg.onlinetestapp.service;
 
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.capg.onlinetestapp.dao.IUserDao;
 import com.capg.onlinetestapp.entities.Questions;
 import com.capg.onlinetestapp.entities.Test;
 import com.capg.onlinetestapp.entities.User;
 import com.capg.onlinetestapp.exceptions.NotAdminException;
-import com.capg.onlinetestapp.exceptions.*;
+import com.capg.onlinetestapp.exceptions.NotStudentException;
+import com.capg.onlinetestapp.exceptions.ValueNullException;
 
 
 
-public class UserServiceImp implements IUserService  {
+public class UserService implements IUserService {
 	private IUserDao dao;
 
-	public UserServiceImp(IUserDao dao) {
+	public UserService(IUserDao dao) {
 		this.dao = dao;
 	}
 	
 	@Override
 	public Test addTest(Test test) {
-		//if( User.isAdmin == true) {
+		if( User.isAdmin == true) {
 			return dao.addTest(test);
-		//}
-		//else {
-		//	throw new NotAdminException("Only admin can add test");
+		}
+		else {
+			throw new NotAdminException("Only admin can add test");
 			//return test;
-	//	}
+		}
 	}
 	
 	@Override
 	public Test updateTest(BigInteger testId,Test test) {
 		if( User.isAdmin == true) {
-			validatetestId(testId);
 			return dao.updateTest(testId, test);
 		}
 		else {
@@ -45,7 +55,6 @@ public class UserServiceImp implements IUserService  {
 	@Override
 	public  Test deleteTest(BigInteger testId) {
 		if( User.isAdmin == true) {
-			validatetestId(testId);
 			return dao.deleteTest( testId);
 		}
 		else {
@@ -57,8 +66,6 @@ public class UserServiceImp implements IUserService  {
 	@Override
 	public boolean assignTest(Long userId,BigInteger testId) {
 		if( User.isAdmin == true) {
-			validatetestId(testId);
-			validateUserId(userId);
 			return dao.assignTest(userId, testId);
 		}
 		else {
@@ -69,8 +76,6 @@ public class UserServiceImp implements IUserService  {
 	@Override
 	public Questions addQuestions(BigInteger testId,Questions question) {
 		if( User.isAdmin == true) {
-			validatetestId(testId);
-			validatequestionId( question.getQuestionId());
 			return dao.addQuestions(testId,question);
 		}
 		else {
@@ -82,8 +87,6 @@ public class UserServiceImp implements IUserService  {
 	@Override
 	public  Questions updateQuestions(BigInteger testId,Questions question) {
 		if( User.isAdmin == true) {
-			validatetestId(testId);
-			validatequestionId( question.getQuestionId());
 			return dao.updateQuestions(testId,question);
 		}
 		else {
@@ -95,8 +98,6 @@ public class UserServiceImp implements IUserService  {
 	@Override
 	public Questions deleteQuestions(BigInteger testId,Questions question) {
 		if( User.isAdmin == true) {
-			validatetestId(testId);
-			validatequestionId( question.getQuestionId());
 			return dao.deleteQuestions(testId,question);
 		}
 		else {
@@ -115,22 +116,5 @@ public class UserServiceImp implements IUserService  {
 			
 		}
 	}
-	
-	void validateUserId(long userId) {
-		if (userId <= 0) {
-			throw new IncorrectIdException("User id is null");
-		}
-	}
-	
-	void validatetestId(BigInteger testId) {
-		if ( testId.equals(null)) {
-			throw new IncorrectIdException("test id is null");
-		}
-	}
-	
-	void validatequestionId(BigInteger questionId) {
-		if ( questionId.equals(null)) {
-			throw new IncorrectIdException("question id is null");
-		}
-	}
 }
+
